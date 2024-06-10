@@ -13,15 +13,18 @@ return new class extends Migration {
     {
         Schema::create("posts", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("embed_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
-            $table->string("status", 10)->default(PostStatus::DRAFT->value);
+            $table->foreign("embed_id")->references("id")->on("embeds");
+            $table->string("status", 20)->default(PostStatus::DRAFT->value);
             $table->string("title", 120);
             $table->string("description", 240);
-            $table->json("content")->nullable();
+            $table->text("content");
             $table->mediumInteger("votes")->default(0); // upvotes + downvotes
             $table->unsignedMediumInteger("upvotes")->default(0); // sum of positive votes
             $table->unsignedMediumInteger("downvotes")->default(0); // sum of negative votes
-            $table->float("rating")->default(0); // calc on upvotes / downvotes + created_at
+            $table->float("rating")->default(0); // calc using reddit rating algorithm
             $table->unsignedMediumInteger("views")->default(0); // count of post_views
             $table->timestamp("publish_at")->nullable();
             $table->timestamps();

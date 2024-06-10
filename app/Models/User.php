@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,21 +19,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ["name", "email", "password"];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ["password", "remember_token"];
 
     /**
      * The attributes that should be cast.
@@ -39,7 +34,67 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        "email_verified_at" => "datetime",
+        "password" => "hashed",
     ];
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function dialogs(): HasMany
+    {
+        return $this->hasMany(Dialog::class);
+    }
+
+    public function dialogMessages(): HasMany
+    {
+        return $this->hasMany(DialogMessage::class);
+    }
+
+    public function embeds(): HasMany
+    {
+        return $this->hasMany(Embed::class);
+    }
+
+    public function media(): HasMany
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    public function polls(): HasMany
+    {
+        return $this->hasMany(Poll::class);
+    }
+
+    public function pollQuestions(): HasMany
+    {
+        return $this->hasMany(PollQuestion::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function postComments(): HasMany
+    {
+        return $this->hasMany(PostComment::class);
+    }
+
+    public function postViews(): HasMany
+    {
+        return $this->hasMany(PostView::class);
+    }
+
+    public function postAttachables(): HasMany
+    {
+        return $this->hasMany(PostAttachable::class);
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
 }

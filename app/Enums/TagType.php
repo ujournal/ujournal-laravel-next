@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum TagType: string
 {
-    case USER = "user";
+    case GENERIC = "generic";
     case TOPIC = "topic";
     case MODERATION = "moderation";
-    case ADULT = "adult";
+    case NSFW = "nsfw";
 }

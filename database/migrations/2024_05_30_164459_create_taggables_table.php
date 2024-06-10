@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create("taggables", function (Blueprint $table) {
+            $table->unsignedBigInteger("tag_id");
             $table->foreign("tag_id")->references("id")->on("tags");
             $table->string("taggable_type", 400);
             $table->unsignedBigInteger("taggable_id"); // post

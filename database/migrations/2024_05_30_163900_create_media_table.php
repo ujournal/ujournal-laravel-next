@@ -12,13 +12,14 @@ return new class extends Migration {
     {
         Schema::create("media", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
-            $table->string("type", 10);
+            $table->string("type", 20);
             $table->string("url", 500);
             $table->unsignedMediumInteger("width")->nullable();
             $table->unsignedMediumInteger("height")->nullable();
             $table->unsignedMediumInteger("duration")->nullable(); // in seconds
-            $table->unsignedMediumInteger("size")->nullable(); // in kbytes
+            $table->unsignedMediumInteger("size")->default(0); // in kbytes
             $table->timestamps();
         });
     }

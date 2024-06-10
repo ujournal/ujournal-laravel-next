@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Poll extends Model
+class Country extends Model
 {
     use HasFactory;
 
@@ -15,10 +14,5 @@ class Poll extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ["user_id", "name"];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ["name", "alias"];
 }

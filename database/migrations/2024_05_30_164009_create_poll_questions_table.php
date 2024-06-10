@@ -12,6 +12,9 @@ return new class extends Migration {
     {
         Schema::create("poll_questions", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("poll_id")->nullable();
+            $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("poll_id")->references("id")->on("polls");
             $table->string("name", 240);
             $table->unsignedMediumInteger("votes")->default(0);

@@ -12,10 +12,13 @@ return new class extends Migration {
     {
         Schema::create("dialog_messages", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("dialog_id")->nullable();
+            $table->unsignedBigInteger("partner_id")->nullable();
+            $table->unsignedBigInteger("media_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("dialog_id")->references("id")->on("dialogs");
             $table->foreign("partner_id")->references("id")->on("users");
-            $table->unsignedBigInteger("media_id")->nullable();
             $table->foreign("media_id")->references("id")->on("media"); // image
             $table->json("content")->nullable();
             $table->timestamps();

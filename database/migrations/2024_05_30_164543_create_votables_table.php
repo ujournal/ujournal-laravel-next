@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create("votables", function (Blueprint $table) {
+            $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users");
             $table->string("votable_type", 400);
             $table->unsignedBigInteger("votable_id"); // post, comment, poll_question

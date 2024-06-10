@@ -12,8 +12,9 @@ return new class extends Migration {
     {
         Schema::create("polls", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
-            $table->string("title", 500);
+            $table->string("name", 240);
             $table->unsignedMediumInteger("votes")->default(0); // sum of poll questions votes
             $table->timestamp("finish_at")->nullable();
             $table->timestamps();

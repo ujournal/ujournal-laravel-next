@@ -10,10 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create("post_embedables", function (Blueprint $table) {
-            $table->foreign("post_id")->references("id")->on("posts");
-            $table->string("embedable_type", 400);
-            $table->unsignedBigInteger("embedable_id"); // embed, poll
+        Schema::create("countries", function (Blueprint $table) {
+            $table->id();
+            $table->string("name", 80);
+            $table->string("alias", 80);
+            $table->timestamps();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists("post_embedables");
+        Schema::dropIfExists("countries");
     }
 };

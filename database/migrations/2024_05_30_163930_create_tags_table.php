@@ -13,14 +13,15 @@ return new class extends Migration {
     {
         Schema::create("tags", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
             $table->unsignedBigInteger("media_id")->nullable();
             $table->foreign("media_id")->references("id")->on("media"); // image
-            $table->string("type", 10)->default(TagType::USER->value);
+            $table->string("type", 20)->default(TagType::GENERIC->value);
             $table->string("name", 80);
             $table->string("alias", 80);
             $table->string("description", 240)->nullable(); // nullable
-            $table->boolean("protect")->default(false); // can be viewed only by moderator or admin
+            $table->boolean("protected")->default(false); // can be viewed only by moderator or admin
             $table->timestamps();
         });
     }

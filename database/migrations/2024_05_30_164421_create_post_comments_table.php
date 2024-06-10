@@ -12,15 +12,18 @@ return new class extends Migration {
     {
         Schema::create("post_comments", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("post_id")->nullable();
+            $table->unsignedBigInteger("post_comment_id")->nullable();
+            $table->unsignedBigInteger("embed_id")->nullable();
             $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("post_id")->references("id")->on("posts");
             $table
                 ->foreign("post_comment_id")
                 ->references("id")
                 ->on("post_comments");
-            $table->unsignedBigInteger("embed_id")->nullable();
             $table->foreign("embed_id")->references("id")->on("embeds");
-            $table->json("content");
+            $table->string("content", 2000);
             $table->string("description", 240);
             $table->timestamps();
         });

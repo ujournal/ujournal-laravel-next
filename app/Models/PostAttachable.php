@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class PostView extends Model
+class PostAttachable extends Model
 {
     use HasFactory;
 
@@ -15,7 +16,12 @@ class PostView extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ["user_id", "post_id", "country_id"];
+    protected $fillable = [
+        "user_id",
+        "post_attachable_type",
+        "post_attachable_id",
+        "type",
+    ];
 
     public function user(): BelongsTo
     {
@@ -27,8 +33,18 @@ class PostView extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function country(): BelongsTo
+    public function isTypeOf(string $className): bool
     {
-        return $this->belongsTo(Country::class);
+        return $this->attachable_type === $className;
+    }
+
+    public function poll(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    public function embed(): MorphTo
+    {
+        return $this->morphTo();
     }
 }
